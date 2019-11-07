@@ -66,7 +66,7 @@ func (p *Pool) Close() {
 	p.closed = true
 }
 
-func (p *Pool) cap() int32 {
+func (p *Pool) Cap() int32 {
 	return p.limit
 }
 
