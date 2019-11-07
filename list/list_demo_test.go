@@ -2,8 +2,9 @@
 package list_test
 
 import (
-	"gtool/list"
 	"testing"
+
+	"github.com/gnever/gtool/list"
 )
 
 func TestDemo(t *testing.T) {
