@@ -17,11 +17,11 @@ func TestNew(t *testing.T) {
 	w := workerPool.New(10)
 
 	for i := 0; i < num; i++ {
-		go func(n int) {
-			w.Add(func() {
-				time.Sleep(time.Second * 1)
-			})
-		}(i)
+		n := i
+		w.Add(func() {
+			fmt.Println(n)
+			time.Sleep(time.Second * 1)
+		})
 	}
 
 	for {
