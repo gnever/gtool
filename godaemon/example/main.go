@@ -10,7 +10,7 @@ import (
 func main() {
 
 	l := glog.New().Line(true)
-	l.SetPath("/tmp/")
+	l.SetPath("/tmp/godaemon-example-log")
 	l.SetStdoutPrint(true)
 
 	l.Debugf("start  %d", time.Now().Unix())

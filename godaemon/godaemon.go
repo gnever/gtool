@@ -13,11 +13,12 @@ func init() {
 	if !flag.Parsed() {
 		flag.Parse()
 	}
+
 	if *godaemon {
 		args := os.Args[1:]
 
 		for i := 0; i < len(args); i++ {
-			if args[i] == "-d=true" {
+			if args[i] == "-d=true" ||  args[i] == "-d" {
 				args[i] = "-d=false"
 				break
 			}
