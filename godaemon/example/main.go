@@ -2,22 +2,20 @@ package main
 
 import (
 	"time"
+	"fmt"
 
 	_ "github.com/gnever/gtool/godaemon"
-	"github.com/gogf/gf/os/glog"
+    "github.com/gnever/gtool/gfile"
 )
 
 func main() {
 
-	l := glog.New().Line(true)
-	l.SetPath("/tmp/godaemon-example-log")
-	l.SetStdoutPrint(true)
-
-	l.Debugf("start  %d", time.Now().Unix())
+    file := "/tmp/godaemon-example-log/show.log"
+    gfile.PutContentsAppend(file, fmt.Sprintf("start  %d\n", time.Now().Unix()))
 	for i := 0; i < 100; i++ {
-		l.Debugf("do  %d", time.Now().Unix())
+        gfile.PutContentsAppend(file, fmt.Sprintf("do  %d\n", time.Now().Unix()))
 		time.Sleep(time.Second)
 	}
-	l.Debugf("end  %d", time.Now().Unix())
+    gfile.PutContentsAppend(file, fmt.Sprintf("end  %d\n", time.Now().Unix()))
 
 }

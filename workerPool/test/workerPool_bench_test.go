@@ -1,16 +1,18 @@
 // go test workerPool_bench_test.go pool.go  -bench="Ben.*" -benchmem -cpuprofile profile_cpu.out
 // go tool pprof -pdf profile_cpu.out > profile_cpu.pdf
-package workerPool
+package workerPoolB
 
 import (
 	"testing"
 	"time"
+
+	"github.com/gnever/gtool/workerPool"
 )
 
 func BenchmarkWorkerPool(b *testing.B) {
 	b.ResetTimer()
 
-	w := New(1000)
+	w := workerPool.New(1000)
 	for i := 0; i < b.N; i++ {
 		w.Add(func() {
 			time.Sleep(time.Millisecond * 1)
