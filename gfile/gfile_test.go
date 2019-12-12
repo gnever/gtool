@@ -1,9 +1,10 @@
 package gfile_test
 
 import (
-	"github.com/gnever/gtool/gfile"
 	"reflect"
 	"testing"
+
+	"github.com/gnever/gtool/gfile"
 )
 
 func TestMkdir(t *testing.T) {

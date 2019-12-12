@@ -184,17 +184,16 @@ func GetContents(file string) (string, error) {
 }
 
 //GetLinesByScan 以 string 的格式按行读取
-func GetLinesByScan(file string, function interface{}) error {
+func GetLinesByScan(file string, function func(line string)) error {
 	return getByScan(file, function, "string")
 }
 
 //GetBytesByScan 以 []byte 的格式按行读取
-func GetBytesByScan(file string, function interface{}) error {
+func GetBytesByScan(file string, function func(line []byte)) error {
 	return getByScan(file, function, "byte")
 }
 
 func getByScan(file string, function interface{}, t string) error {
-
 	f, err := os.Open(file)
 	if err != nil {
 		return err
