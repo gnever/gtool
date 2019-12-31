@@ -39,7 +39,7 @@ func (l *List) PopFront() (v interface{}) {
 	return
 }
 
-func (l *List) PopBack(limit ...int) (v interface{}) {
+func (l *List) PopBack() (v interface{}) {
 	l.mu.Lock()
 	if e := l.list.Back(); e != nil {
 		v = l.list.Remove(e)

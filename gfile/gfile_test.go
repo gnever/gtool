@@ -159,7 +159,7 @@ func TestCopyDir(t *testing.T) {
 
 }
 
-func TestWriteLine(t *testing.T) {
+func TestWriteLines(t *testing.T) {
 	file := "/tmp/test-write.log"
 	contents := `testas`
 
@@ -211,7 +211,7 @@ func TestAppendStrings(t *testing.T) {
 		getList = append(getList, line)
 	}
 
-	gfile.GetLinesByScan(file, cf)
+    gfile.ReadLines(file, cf)
 
 	if reflect.DeepEqual(getList, list) == false {
 		t.Errorf("get contents is %s,  Should be %s", getList, list)
@@ -240,7 +240,7 @@ func TestAppendBytes(t *testing.T) {
 		getList = append(getList, string(line))
 	}
 
-	gfile.GetBytesByScan(file, cf)
+	gfile.ReadByteLines(file, cf)
 
 	if reflect.DeepEqual(getList, list) == false {
 		t.Errorf("get contents is %s,  Should be %s", getList, list)

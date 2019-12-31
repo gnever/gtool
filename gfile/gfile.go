@@ -8,6 +8,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/gogf/gf/util/gconv"
 )
 
 func Mkdir(path string) (err error) {
@@ -107,6 +109,7 @@ func copyFile(path string, dst string) error {
 func copyDir(path string, dst string) (err error) {
 	path = filepath.Clean(path)
 	dst = filepath.Clean(dst)
+	fmt.Println()
 
 	if !IsDir(path) {
 		return fmt.Errorf("%s not dir", path)
@@ -183,17 +186,16 @@ func GetContents(file string) (string, error) {
 	return string(content), nil
 }
 
-//GetLinesByScan 以 string 的格式按行读取
-func GetLinesByScan(file string, function func(line string)) error {
-	return getByScan(file, function, "string")
+//ReadLines 以 string 的格式按行读取
+func ReadLines(file string, callback func(text string)) error {
+	cb := func(bytes []byte) {
+		callback(gconv.UnsafeBytesToStr(bytes))
+	}
+	return ReadByteLines(file, cb)
 }
 
-//GetBytesByScan 以 []byte 的格式按行读取
-func GetBytesByScan(file string, function func(line []byte)) error {
-	return getByScan(file, function, "byte")
-}
-
-func getByScan(file string, function interface{}, t string) error {
+//ReadByteLines 以 []byte 的格式按行读取
+func ReadByteLines(file string, callback func(bytes []byte)) error {
 	f, err := os.Open(file)
 	if err != nil {
 		return err
@@ -201,14 +203,9 @@ func getByScan(file string, function interface{}, t string) error {
 	defer f.Close()
 
 	scanner := bufio.NewScanner(f)
-	//scanner.Split(bufio.ScanLines)
 
 	for scanner.Scan() {
-		if t == "string" {
-			function.(func(line string))(scanner.Text())
-		} else {
-			function.(func(line []byte))(scanner.Bytes())
-		}
+		callback(scanner.Bytes())
 	}
 	return nil
 }
